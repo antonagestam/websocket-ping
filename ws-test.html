@@ -1,0 +1,17 @@
+<script>
+    let start = () => {
+        let ws = new WebSocket(
+            'ws://' + document.domain + ':' + location.port + '/join');
+
+        ws.onmessage = (e) => {
+            ws.send(e.data);
+        };
+
+        ws.onclose = () => {
+            console.log('reconnecting in 1 second ...');
+            setTimeout(start, 1000);
+        }
+    };
+
+    start();
+</script>
